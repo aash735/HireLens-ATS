@@ -617,6 +617,75 @@ const jobDescriptions = [
         }
     },
     {
+        title: "Product Engineer",
+        summary: "Bridges the gap between product thinking and engineering execution. Works across the full stack to build user-facing features, drive data-informed decisions, and ship products that balance technical excellence with exceptional user experience.",
+        location: "Bengaluru, India — Full-time — Hybrid",
+        team: "Embedded in a cross-functional product squad with Product Managers, UX Designers, Data Analysts, and Backend Engineers to own and ship end-to-end product features.",
+        responsibilities: [
+            "Design, build, and ship high-quality user-facing features across web and mobile platforms",
+            "Collaborate with product managers to define requirements, scope features, and write technical specs",
+            "Translate product requirements and UI/UX designs into production-ready code",
+            "Instrument features with analytics events and metrics to measure product impact",
+            "Conduct and analyze A/B tests to validate product hypotheses and drive data-informed decisions",
+            "Optimize application performance, scalability, and reliability for production traffic",
+            "Participate in product discovery: user interviews, usability testing, and feedback synthesis",
+            "Contribute to system design discussions, ensuring scalability and maintainability",
+            "Write clean, well-tested, and documented code following best engineering practices",
+            "Monitor, debug, and resolve production incidents to maintain system reliability"
+        ],
+        required_qualifications: [
+            "Bachelor's degree in Computer Science, Engineering, or a related field",
+            "1-3 years of experience in product-focused engineering or full-stack development",
+            "Proficiency in modern JavaScript and at least one frontend framework (React preferred)",
+            "Experience building and consuming RESTful APIs",
+            "Familiarity with relational databases (SQL) and basic data querying",
+            "Understanding of UI/UX principles and ability to implement pixel-perfect designs",
+            "Experience with Git and collaborative development workflows"
+        ],
+        preferred_qualifications: [
+            "Experience with product analytics tools (Mixpanel, Amplitude, Google Analytics)",
+            "Understanding of A/B testing frameworks and experimentation platforms",
+            "Familiarity with performance optimization techniques (Core Web Vitals, lazy loading)",
+            "Knowledge of agile/scrum product development workflows",
+            "Experience with feature flag systems and progressive rollout strategies",
+            "Understanding of customer journey mapping and user research methods",
+            "Exposure to system design for scalable, high-availability architectures"
+        ],
+        skills: [
+            "Strong frontend engineering skills (JavaScript, React, HTML5, CSS3)",
+            "Product thinking: ability to reason about user needs, business goals, and technical tradeoffs",
+            "Data literacy: comfortable with analytics dashboards, metrics, and basic SQL for analysis",
+            "Cross-functional communication with non-technical stakeholders",
+            "Ownership mindset: driving features from ideation through deployment and iteration"
+        ],
+        experience_level: "Mid-Level (1-3 years of experience)",
+        keywords: [
+            "JavaScript", "React", "TypeScript", "HTML5", "CSS3", "REST API", "Node.js",
+            "SQL", "Git", "Agile", "Scrum", "Product Management", "User Experience",
+            "A/B Testing", "Analytics", "Product Analytics", "Mixpanel", "Amplitude",
+            "Google Analytics", "Performance Optimization", "Core Web Vitals", "System Design",
+            "Scalability", "Feature Flags", "User Research", "Data-Driven", "UI/UX",
+            "Cross-Functional", "API Integration", "Web Performance", "Product Roadmap"
+        ],
+        suggestions: {
+            "JavaScript": ["ES6+", "Modern JavaScript", "Vanilla JS"],
+            "React": ["React.js", "React Hooks", "Component Architecture"],
+            "TypeScript": ["Typed JavaScript", "Static Typing"],
+            "REST API": ["RESTful Services", "API Design", "HTTP APIs"],
+            "A/B Testing": ["Experimentation", "Split Testing", "Feature Testing"],
+            "Analytics": ["Product Analytics", "Data Analysis", "Telemetry"],
+            "Product Analytics": ["User Analytics", "Behavioral Analytics", "Event Tracking"],
+            "Performance Optimization": ["Web Performance", "Core Web Vitals", "Page Speed"],
+            "System Design": ["Architecture Design", "Scalable Systems"],
+            "Scalability": ["High Availability", "Load Balancing", "Distributed Systems"],
+            "Feature Flags": ["Feature Toggles", "Progressive Rollout", "Canary Releases"],
+            "User Research": ["User Interviews", "Usability Testing", "Customer Discovery"],
+            "UI/UX": ["User Interface", "User Experience Design", "Design Systems"],
+            "Product Management": ["Product Thinking", "Product Strategy", "Roadmapping"],
+            "Data-Driven": ["Metrics-Driven", "KPIs", "OKRs"]
+        }
+    },
+    {
         title: "Entry-Level Cloud Solutions Architect (Trainee)",
         summary: "A trainee role focused on learning and assisting in the design, planning, and deployment of scalable, secure, and cost-effective cloud infrastructure on a major cloud platform.",
         location: "Bengaluru, India — Full-time — Hybrid",

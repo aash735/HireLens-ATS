@@ -353,3 +353,71 @@
 .job-card:nth-child(11) { animation-delay: 0.6s; }
 .job-card:nth-child(12) { animation-delay: 0.65s; }
 .job-card:nth-child(13) { animation-delay: 0.7s; }
+
+/* ===== PRODUCT ENGINEER & FEATURED CARD ENHANCEMENTS ===== */
+
+/* Featured card variant */
+.job-card--featured {
+    border-color: rgba(124, 58, 237, 0.25);
+    background: linear-gradient(160deg, var(--white) 70%, rgba(124, 58, 237, 0.04) 100%);
+}
+
+.job-card--featured:hover {
+    border-color: #7c3aed;
+    box-shadow: 0 20px 60px rgba(124, 58, 237, 0.15);
+}
+
+.job-card--featured::before {
+    background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+}
+
+/* Ribbon badge for new/featured roles */
+.job-featured-ribbon {
+    position: absolute;
+    top: 1rem;
+    right: -0.25rem;
+    background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px 0 0 50px;
+    box-shadow: -2px 2px 8px rgba(124, 58, 237, 0.3);
+    z-index: 2;
+}
+
+/* Accent button variant */
+.analyze-btn--accent {
+    background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%) !important;
+}
+
+/* Skill chips preview row on job cards */
+.skill-chips-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+}
+
+.skill-chip {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text-light);
+    border-radius: 4px;
+    letter-spacing: 0.2px;
+    transition: var(--transition);
+}
+
+[data-theme="dark"] .skill-chip {
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.job-card--featured .skill-chip {
+    background: rgba(124, 58, 237, 0.07);
+    color: #7c3aed;
+}
+
+.job-card:nth-child(14) { animation-delay: 0.75s; }

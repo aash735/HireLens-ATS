@@ -20,8 +20,87 @@ const jobIcons = {
     'Web Developer': '🌐',
     'DevOps Engineer': '🚀',
     'Database Administrator (DBA)': '💾',
-    'Cloud Solutions Architect': '☁️'
+    'Cloud Solutions Architect': '☁️',
+    'Product Engineer': '🧩'
 };
+
+// Role accent config for visual theming on the upload page
+const jobAccents = {
+    'Product Engineer': {
+        iconBg: 'linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%)',
+        color: '#7c3aed'
+    }
+};
+
+// ─── Role Fit Engine ────────────────────────────────────────────────────────
+// Computes a keyword overlap score between resume text and each job description,
+// then returns the top 3 closest roles as a ranked list.
+function computeRoleFit(resumeText) {
+    const scores = jobDescriptions.map((job, index) => {
+        const total = job.keywords.length;
+        if (total === 0) return { index, title: job.title, score: 0, pct: 0 };
+        let matched = 0;
+        job.keywords.forEach(kw => {
+            if (checkKeywordMatch(resumeText, kw)) matched++;
+        });
+        return { index, title: job.title, score: matched, pct: Math.round((matched / total) * 100) };
+    });
+    return scores.sort((a, b) => b.pct - a.pct).slice(0, 3);
+}
+
+// Render role fit panel (called after analysis)
+function renderRoleFitPanel(resumeText, currentJobTitle) {
+    const fits = computeRoleFit(resumeText);
+    const existingPanel = document.getElementById('roleFitPanel');
+    if (existingPanel) existingPanel.remove();
+
+    const panel = document.createElement('div');
+    panel.id = 'roleFitPanel';
+    panel.className = 'role-fit-panel';
+
+    const items = fits.map((fit, i) => {
+        const isCurrentRole = fit.title === currentJobTitle;
+        const rankLabels = ['🥇 Best Fit', '🥈 Strong Fit', '🥉 Good Fit'];
+        const isProductEng = fit.title === 'Product Engineer';
+        const accentColor = isProductEng ? '#7c3aed' : 'var(--primary)';
+        return `
+            <div class="fit-item ${isCurrentRole ? 'fit-item--current' : ''}">
+                <div class="fit-item-left">
+                    <span class="fit-rank">${rankLabels[i]}</span>
+                    <span class="fit-title" style="${isProductEng ? 'color:#7c3aed' : ''}">${fit.title}</span>
+                    ${isCurrentRole ? '<span class="fit-current-badge">Analyzing</span>' : ''}
+                </div>
+                <div class="fit-bar-wrap">
+                    <div class="fit-bar">
+                        <div class="fit-bar-fill" style="width:${fit.pct}%;background:${accentColor}" data-pct="${fit.pct}"></div>
+                    </div>
+                    <span class="fit-pct" style="${isProductEng ? 'color:#7c3aed' : ''}">${fit.pct}%</span>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    panel.innerHTML = `
+        <h3 class="section-heading"><span class="heading-icon">🎯</span>Recommended Role Fit</h3>
+        <p class="section-description">Based on your resume keywords, here are your top matching roles across all available positions.</p>
+        <div class="fit-list">${items}</div>
+    `;
+
+    // Insert before resume preview section
+    const previewSection = document.querySelector('.resume-preview-section');
+    if (previewSection) {
+        previewSection.parentNode.insertBefore(panel, previewSection);
+    }
+
+    // Animate bars in after render
+    requestAnimationFrame(() => {
+        panel.querySelectorAll('.fit-bar-fill').forEach(bar => {
+            const pct = bar.getAttribute('data-pct');
+            bar.style.width = '0%';
+            setTimeout(() => { bar.style.width = pct + '%'; }, 100);
+        });
+    });
+}
 
 // Initialize page
 document.addEventListener('DOMContentLoaded', () => {
@@ -49,10 +128,22 @@ function loadSelectedJob() {
 
     // Update job info card
     const icon = jobIcons[selectedJob.title] || '💼';
+    const accent = jobAccents[selectedJob.title];
+
     document.getElementById('jobInfoIcon').textContent = icon;
     document.getElementById('jobInfoTitle').textContent = selectedJob.title;
     document.getElementById('jobInfoLocation').textContent = selectedJob.location;
     document.getElementById('jobInfoLevel').textContent = selectedJob.experience_level;
+
+    // Apply accent styling for special roles
+    if (accent) {
+        const titleEl = document.getElementById('jobInfoTitle');
+        titleEl.style.background = accent.iconBg;
+        titleEl.style.webkitBackgroundClip = 'text';
+        titleEl.style.webkitTextFillColor = 'transparent';
+        titleEl.style.backgroundClip = 'text';
+        document.getElementById('jobInfoLevel').style.color = accent.color;
+    }
 }
 
 // Setup file upload
@@ -305,6 +396,9 @@ function displayResults(score, matchedKeywords, missingKeywords, suggestions) {
 
     // Display resume content with highlights
     displayResumeContent();
+
+    // Render role fit panel
+    renderRoleFitPanel(resumeText, selectedJob.title);
 
     // Scroll to results
     setTimeout(() => {

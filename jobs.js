@@ -14,7 +14,19 @@ const jobIcons = {
     'Web Developer': '🌐',
     'DevOps Engineer': '🚀',
     'Database Administrator (DBA)': '💾',
-    'Cloud Solutions Architect': '☁️'
+    'Cloud Solutions Architect': '☁️',
+    'Product Engineer': '🧩'
+};
+
+// Role accents for visual differentiation on special roles
+const jobAccents = {
+    'Product Engineer': {
+        iconBg: 'linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%)',
+        badgeColor: 'rgba(124, 58, 237, 0.12)',
+        badgeText: '#7c3aed',
+        borderColor: '#7c3aed',
+        isFeatured: true
+    }
 };
 
 // Get experience level for filtering
@@ -47,16 +59,30 @@ function renderJobs(jobs) {
 
     jobs.forEach((job, index) => {
         const jobCard = document.createElement('div');
-        jobCard.className = 'job-card';
+        const accent = jobAccents[job.title];
+        jobCard.className = accent && accent.isFeatured ? 'job-card job-card--featured' : 'job-card';
         jobCard.style.animationDelay = `${index * 0.05}s`;
 
         const icon = jobIcons[job.title] || '💼';
         const category = getExperienceCategory(job.experience_level);
-        
+        const featuredBadge = accent && accent.isFeatured
+            ? `<div class="job-featured-ribbon">✦ New Role</div>` : '';
+
+        const skillPreview = (job.keywords || [])
+            .slice(0, 4)
+            .map(k => `<span class="skill-chip">${k}</span>`)
+            .join('');
+
+        const iconStyle = accent ? `style="background:${accent.iconBg}"` : '';
+        const badgeStyle = accent ? `style="background:${accent.badgeColor};color:${accent.badgeText}"` : '';
+        const btnClass = accent ? 'analyze-btn analyze-btn--accent' : 'analyze-btn';
+        const btnStyle = accent ? `style="background:${accent.iconBg}"` : '';
+
         jobCard.innerHTML = `
+            ${featuredBadge}
             <div class="job-card-header">
-                <div class="job-icon">${icon}</div>
-                <div class="job-badge">${category}</div>
+                <div class="job-icon" ${iconStyle}>${icon}</div>
+                <div class="job-badge" ${badgeStyle}>${category}</div>
             </div>
             <h3 class="job-title">${job.title}</h3>
             <div class="job-location">
@@ -64,9 +90,10 @@ function renderJobs(jobs) {
                 ${job.location}
             </div>
             <p class="job-summary">${job.summary}</p>
+            ${skillPreview ? `<div class="skill-chips-row">${skillPreview}</div>` : ''}
             <div class="job-card-footer">
                 <span class="job-level">${job.experience_level.split(';')[0]}</span>
-                <button class="analyze-btn" data-job-index="${index}">
+                <button class="${btnClass}" data-job-index="${index}" ${btnStyle}>
                     Analyze Resume
                     <span class="arrow-icon">→</span>
                 </button>
